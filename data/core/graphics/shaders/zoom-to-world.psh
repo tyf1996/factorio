@@ -1,0 +1,213 @@
+cbuffer _105
+{
+    float2 _105_zoom_to_world_params : packoffset(c0);
+    float _105_timer : packoffset(c0.z);
+    float _105_lutSize : packoffset(c0.w);
+    float2 _105_resolution : packoffset(c1);
+    float _105_lutAlpha : packoffset(c1.z);
+    float _105_lightMul : packoffset(c1.w);
+    float _105_lightAdd : packoffset(c2);
+    uint _105_debugShowLut : packoffset(c2.y);
+    float _105_vignetteIntensity : packoffset(c2.z);
+    float _105_vignetteSharpness : packoffset(c2.w);
+    float _105_borderSize : packoffset(c3);
+    float _105_borderOffset : packoffset(c3.y);
+    float _105_noiseIntensity : packoffset(c3.z);
+    uint _105_noiseMask : packoffset(c3.w);
+    float _105_horizontalLinesIntensity : packoffset(c4);
+    uint _105_horizontalLinesMask : packoffset(c4.y);
+    float _105_scanLinesFlickerIntensity : packoffset(c4.z);
+    uint _105_scanLinesFlickerMask : packoffset(c4.w);
+    float _105_saturation : packoffset(c5);
+    uint _105_saturationMask : packoffset(c5.y);
+    uint _105_colorMask : packoffset(c5.z);
+    uint _105_curved : packoffset(c5.w);
+    float4 _105_color : packoffset(c6);
+    float _105_lineWidth : packoffset(c7);
+    float _105_guiScale : packoffset(c7.y);
+    float _105_brightness : packoffset(c7.z);
+    float _105_gapBetweenLinesWidth : packoffset(c7.w);
+    float _105_crtEffectIntensity : packoffset(c8);
+    uint _105_crtEffectMask : packoffset(c8.y);
+};
+Texture2D<float4> gameview : register(t0);
+SamplerState _gameview_sampler : register(s0);
+Texture3D<float4> lut1 : register(t3);
+SamplerState _lut1_sampler : register(s3);
+Texture2D<float4> lightmap : register(t1);
+SamplerState _lightmap_sampler : register(s1);
+Texture2D<float4> detailLightmap : register(t2);
+SamplerState _detailLightmap_sampler : register(s2);
+
+static float4 gl_FragCoord;
+static float2 vUV;
+static float4 fragColor;
+
+struct SPIRV_Cross_Input
+{
+    float2 vUV : TEXCOORD0;
+    float4 gl_FragCoord : SV_Position;
+};
+
+struct SPIRV_Cross_Output
+{
+    float4 fragColor : SV_Target0;
+};
+
+float mod(float x, float y)
+{
+    return x - y * floor(x / y);
+}
+
+float2 mod(float2 x, float2 y)
+{
+    return x - y * floor(x / y);
+}
+
+float3 mod(float3 x, float3 y)
+{
+    return x - y * floor(x / y);
+}
+
+float4 mod(float4 x, float4 y)
+{
+    return x - y * floor(x / y);
+}
+
+float3 colorToLut16Index(float3 inputColor)
+{
+    return (inputColor * 0.9375f) + 0.03125f.xxx;
+}
+
+float4 fetchPixel(float2 uv)
+{
+    float4 color = gameview.Sample(_gameview_sampler, uv);
+    float3 param = color.xyz;
+    float3 lookupIndex = colorToLut16Index(param);
+    float4 sunlitColor = float4(lut1.SampleLevel(_lut1_sampler, lookupIndex, 0.0f).xyz, color.w);
+    float4 light = lightmap.Sample(_lightmap_sampler, uv) + detailLightmap.Sample(_detailLightmap_sampler, uv);
+    light = clamp(light, 0.0f.xxxx, 1.0f.xxxx);
+    float3 _266 = (light.xyz * _105_lightMul.xxx) + _105_lightAdd.xxx;
+    light = float4(_266.x, _266.y, _266.z, light.w);
+    float4 c = lerp(sunlitColor, color, light);
+    return c;
+}
+
+float4 getColor(float2 uv)
+{
+    float2 param = uv;
+    return fetchPixel(param);
+}
+
+float vignette(float2 p, float intensity, float sharpness)
+{
+    float2 uv = p * (1.0f.xx - p.yx);
+    float vig = (uv.x * uv.y) * intensity;
+    return clamp(pow(abs(vig), sharpness), 0.0f, 1.0f);
+}
+
+float3x3 saturationMatrix(float saturation)
+{
+    float3 luminance = float3(0.308600008487701416015625f, 0.609399974346160888671875f, 0.08200000226497650146484375f);
+    float oneMinusSat = 1.0f - saturation;
+    float3 red = (luminance.x * oneMinusSat).xxx;
+    red.x += saturation;
+    float3 green = (luminance.y * oneMinusSat).xxx;
+    green.y += saturation;
+    float3 blue = (luminance.z * oneMinusSat).xxx;
+    blue.z += saturation;
+    return float3x3(float3(red), float3(green), float3(blue));
+}
+
+float hmix(float a, float b)
+{
+    return frac(sin((a * 12.98980045318603515625f) + b) * 43758.546875f);
+}
+
+float hash3(float a, float b, float c)
+{
+    float param = a;
+    float param_1 = b;
+    float ab = hmix(param, param_1);
+    float param_2 = a;
+    float param_3 = c;
+    float ac = hmix(param_2, param_3);
+    float param_4 = b;
+    float param_5 = c;
+    float bc = hmix(param_4, param_5);
+    float param_6 = ac;
+    float param_7 = bc;
+    float param_8 = ab;
+    float param_9 = hmix(param_6, param_7);
+    return hmix(param_8, param_9);
+}
+
+float3 getnoise3(float2 p)
+{
+    float param = p.x;
+    float param_1 = p.y;
+    float param_2 = floor(_105_timer / 3.0f);
+    return hash3(param, param_1, param_2).xxx;
+}
+
+float stripes(float2 uv)
+{
+    float width = _105_lineWidth;
+    float offset = 0.0f;
+    float y = (uv.y * _105_resolution.y) + offset;
+    y = floor(y / width);
+    return float(uint(y) & 1u);
+}
+
+void frag_main()
+{
+    float2 uv = vUV;
+    float2 param = uv;
+    float4 finalColor = getColor(param);
+    float a1 = 0.0f;
+    float2 param_1 = uv;
+    float param_2 = _105_vignetteIntensity;
+    float param_3 = _105_vignetteSharpness;
+    float a2 = 1.0f - vignette(param_1, param_2, param_3);
+    a2 = clamp(a2 * _105_zoom_to_world_params.x, 0.0f, 1.0f);
+    float intensity = a2;
+    float param_4 = lerp(1.0f, _105_saturation, intensity);
+    float3 _345 = mul(finalColor.xyz, saturationMatrix(param_4));
+    finalColor = float4(_345.x, _345.y, _345.z, finalColor.w);
+    float2 cor;
+    cor.x = gl_FragCoord.x / 1.0f;
+    cor.y = (gl_FragCoord.y + (1.5f * mod(floor(cor.x), 2.0f))) / 3.0f;
+    float2 ico = floor(cor);
+    float2 fco = frac(cor);
+    float3 pix = step(1.5f.xxx, mod(float3(0.0f, 1.0f, 2.0f) + ico.x.xxx, 3.0f.xxx));
+    float2 param_5 = ((ico * 1.0f) * float2(1.0f, 3.0f)) / _105_resolution;
+    float3 ima = getColor(param_5).xyz;
+    float3 col = pix * dot(pix, ima);
+    col *= step(abs(fco.x - 0.5f), 0.4000000059604644775390625f);
+    col *= step(abs(fco.y - 0.5f), 0.4000000059604644775390625f);
+    col *= 1.2000000476837158203125f;
+    float t = a2;
+    float3 _432 = lerp(finalColor.xyz, col, (t * _105_crtEffectIntensity).xxx);
+    finalColor = float4(_432.x, _432.y, _432.z, finalColor.w);
+    float2 param_6 = uv;
+    float3 _446 = lerp(finalColor.xyz, getnoise3(param_6), (_105_noiseIntensity * a2).xxx);
+    finalColor = float4(_446.x, _446.y, _446.z, finalColor.w);
+    float2 param_7 = uv;
+    float s = stripes(param_7);
+    float t_1 = a2;
+    float3 _466 = finalColor.xyz * (1.0f + ((t_1 * _105_brightness) * (1.0f - s)));
+    finalColor = float4(_466.x, _466.y, _466.z, finalColor.w);
+    float3 _479 = finalColor.xyz * (1.0f - ((t_1 * _105_horizontalLinesIntensity) * s));
+    finalColor = float4(_479.x, _479.y, _479.z, finalColor.w);
+    fragColor = finalColor;
+}
+
+SPIRV_Cross_Output main(SPIRV_Cross_Input stage_input)
+{
+    gl_FragCoord = stage_input.gl_FragCoord;
+    vUV = stage_input.vUV;
+    frag_main();
+    SPIRV_Cross_Output stage_output;
+    stage_output.fragColor = fragColor;
+    return stage_output;
+}

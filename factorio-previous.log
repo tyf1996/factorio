@@ -1,0 +1,38 @@
+   0.000 2021-02-25 13:53:25; Factorio 1.1.25 (build 58135, linux64, headless)
+   0.044 Operating system: Linux (Ubuntu 16.04)
+   0.044 Program arguments: "/root/factorio/bin/x64/factorio" "--port" "10086" "--start-server" "/root/factorio/saves/life.zip" "--server-settings" "/root/factorio/data/server-settings.json" 
+   0.044 Read data path: /root/factorio/data
+   0.044 Write data path: /root/factorio [61613/63340MB]
+   0.044 Binaries path: /root/factorio/bin
+   0.051 System info: [CPU: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, 1 core, RAM: 921 MB]
+   0.051 Environment: DISPLAY=<unset> WAYLAND_DISPLAY=<unset> DESKTOP_SESSION=<unset> XDG_SESSION_DESKTOP=<unset> XDG_CURRENT_DESKTOP=<unset> __GL_FSAA_MODE=<unset> __GL_LOG_MAX_ANISO=<unset> __GL_SYNC_TO_VBLANK=<unset> __GL_SORT_FBCONFIGS=<unset> __GL_YIELD=<unset>
+   0.051 Running in headless mode
+   0.099 Loading mod core 0.0.0 (data.lua)
+   0.157 Loading mod base 1.1.25 (data.lua)
+   0.474 Loading mod base 1.1.25 (data-updates.lua)
+   0.635 Checksum for core: 217331212
+   0.635 Checksum of base: 3777792092
+   0.898 Prototype list checksum: 3034860339
+   0.945 Info PlayerData.cpp:71: Local player-data.json available, timestamp 1614261090
+   0.945 Info PlayerData.cpp:78: Cloud player-data.json unavailable
+   0.947 Factorio initialised
+   0.948 Info ServerSynchronizer.cpp:29: nextHeartbeatSequenceNumber(0) initialized Synchronizer nextTickClosureTick(0).
+   0.948 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(Ready) to(PreparedToHostGame)
+   0.948 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(PreparedToHostGame) to(CreatingGame)
+   0.953 Loading map /root/factorio/saves/life.zip: 2044618 bytes.
+   0.975 Loading level.dat: 5188826 bytes.
+   0.989 Info Scenario.cpp:197: Map version 1.1.25-0
+   1.208 Loading script.dat: 398 bytes.
+   1.214 Checksum for script /root/factorio/temp/currently-playing/control.lua: 1735894310
+   1.219 Info UDPSocket.cpp:27: Opening socket at (IP ADDR:({0.0.0.0:10086}))
+   1.219 Info UDPSocket.cpp:218: Closing socket
+   1.219 Info UDPSocket.cpp:248: Socket closed
+   1.223 Error ServerMultiplayerManager.cpp:91: MultiplayerManager failed: Host address is already in use.
+   1.223 Info ServerMultiplayerManager.cpp:780: updateTick(424601) changing state from(CreatingGame) to(InitializationFailed)
+   1.223 Info CommandLineMultiplayer.cpp:209: Exit point.
+   1.233 Info ServerMultiplayerManager.cpp:113: Disconnecting multiplayer connection.
+   1.233 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(InitializationFailed) to(DisconnectingScheduled)
+   1.246 Info ServerMultiplayerManager.cpp:140: Quitting multiplayer connection.
+   1.247 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(DisconnectingScheduled) to(Closed)
+   1.280 Info UDPSocket.cpp:218: Closing socket
+   1.281 Goodbye

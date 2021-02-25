@@ -1,0 +1,6 @@
+{
+  "starting-level": "level-01",
+  "order": "d",
+  "multiplayer-compatible": false,
+  "difficulties": [ "easy", "normal", "hard" ]
+}

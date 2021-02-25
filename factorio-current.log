@@ -1,0 +1,81 @@
+   0.000 2021-02-25 13:56:59; Factorio 1.1.25 (build 58135, linux64, headless)
+   0.045 Operating system: Linux (Ubuntu 16.04)
+   0.045 Program arguments: "/root/factorio/bin/x64/factorio" "--port" "10086" "--start-server" "/root/factorio/saves/life.zip" "--server-settings" "/root/factorio/data/server-settings.json" 
+   0.045 Read data path: /root/factorio/data
+   0.045 Write data path: /root/factorio [61619/63340MB]
+   0.045 Binaries path: /root/factorio/bin
+   0.057 System info: [CPU: Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz, 1 core, RAM: 921 MB]
+   0.057 Environment: DISPLAY=<unset> WAYLAND_DISPLAY=<unset> DESKTOP_SESSION=<unset> XDG_SESSION_DESKTOP=<unset> XDG_CURRENT_DESKTOP=<unset> __GL_FSAA_MODE=<unset> __GL_LOG_MAX_ANISO=<unset> __GL_SYNC_TO_VBLANK=<unset> __GL_SORT_FBCONFIGS=<unset> __GL_YIELD=<unset>
+   0.058 Running in headless mode
+   0.171 Loading mod core 0.0.0 (data.lua)
+   0.264 Loading mod base 1.1.25 (data.lua)
+   0.615 Loading mod base 1.1.25 (data-updates.lua)
+   0.767 Checksum for core: 217331212
+   0.768 Checksum of base: 3777792092
+   1.108 Prototype list checksum: 3034860339
+   1.163 Info PlayerData.cpp:71: Local player-data.json available, timestamp 1614261206
+   1.163 Info PlayerData.cpp:78: Cloud player-data.json unavailable
+   1.209 Factorio initialised
+   1.253 Info ServerSynchronizer.cpp:29: nextHeartbeatSequenceNumber(0) initialized Synchronizer nextTickClosureTick(0).
+   1.253 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(Ready) to(PreparedToHostGame)
+   1.253 Info ServerMultiplayerManager.cpp:780: updateTick(4294967295) changing state from(PreparedToHostGame) to(CreatingGame)
+   1.261 Loading map /root/factorio/saves/life.zip: 2044618 bytes.
+   1.328 Loading level.dat: 5188826 bytes.
+   1.336 Info Scenario.cpp:197: Map version 1.1.25-0
+   1.601 Loading script.dat: 398 bytes.
+   1.607 Checksum for script /root/factorio/temp/currently-playing/control.lua: 1735894310
+   1.614 Info UDPSocket.cpp:27: Opening socket at (IP ADDR:({0.0.0.0:10086}))
+   1.614 Hosting game at IP ADDR:({0.0.0.0:10086})
+   1.614 Info ServerMultiplayerManager.cpp:780: updateTick(424601) changing state from(CreatingGame) to(InGame)
+   1.614 Info UDPSocket.cpp:39: Opening socket for broadcast
+   1.615 Info CommandLineMultiplayer.cpp:278: Maximum segment size = 100; minimum segment size = 25; maximum-segment-size peer count = 10; minimum-segment-size peer count = 20
+  10.181 ConnectionRequestReplyConfirm (type(ConnectionRequestReplyConfirm) ) from(IP ADDR:({171.214.211.60:42561}))
+  10.181 Refusing connection for address (IP ADDR:({171.214.211.60:42561})), username (mico-199). PasswordMissing
+  17.623 ConnectionRequestReplyConfirm (type(ConnectionRequestReplyConfirm) ) from(IP ADDR:({171.214.211.60:41856}))
+  17.623 Info ServerRouter.cpp:453: Replying to connectionRequest for address(IP ADDR:({171.214.211.60:41856})).
+  17.623 Info ServerSynchronizer.cpp:600: nextHeartbeatSequenceNumber(476) adding peer(1)
+  17.641 Info ServerMultiplayerManager.cpp:780: updateTick(424601) changing state from(InGame) to(InGameSavingMap)
+  17.708 Info ServerMultiplayerManager.cpp:930: updateTick(424601) received stateChanged peerID(1) oldState(Ready) newState(ConnectedWaitingForMap)
+  28.031 Info ServerMultiplayerManager.cpp:997: UpdateTick(424601) Serving map(/root/factorio/temp/mp-save-0.zip) for peer(1) size(2045168) crc(200315573)
+  28.031 Info ServerMultiplayerManager.cpp:780: updateTick(424601) changing state from(InGameSavingMap) to(InGame)
+  28.956 Info ServerMultiplayerManager.cpp:930: updateTick(424601) received stateChanged peerID(1) oldState(ConnectedWaitingForMap) newState(ConnectedDownloadingMap)
+  78.982 Info ServerMultiplayerManager.cpp:930: updateTick(424601) received stateChanged peerID(1) oldState(ConnectedDownloadingMap) newState(ConnectedLoadingMap)
+  79.151 Info ServerMultiplayerManager.cpp:930: updateTick(424611) received stateChanged peerID(1) oldState(ConnectedLoadingMap) newState(TryingToCatchUp)
+  79.151 Info ServerMultiplayerManager.cpp:930: updateTick(424611) received stateChanged peerID(1) oldState(TryingToCatchUp) newState(WaitingForCommandToStartSendingTickClosures)
+  79.151 Info GameActionHandler.cpp:4978: UpdateTick (424611) processed PlayerJoinGame peerID(1) playerIndex(0) mode(connect) 
+  79.372 Info ServerMultiplayerManager.cpp:930: updateTick(424624) received stateChanged peerID(1) oldState(WaitingForCommandToStartSendingTickClosures) newState(InGame)
+ 162.893 Info ServerMultiplayerManager.cpp:1048: Disconnect notification for peer (1)
+ 162.893 Info ServerMultiplayerManager.cpp:930: updateTick(429635) received stateChanged peerID(1) oldState(InGame) newState(DisconnectScheduled)
+ 162.911 Info ServerSynchronizer.cpp:619: nextHeartbeatSequenceNumber(4779) removing peer(1).
+ 163.902 Info ServerMultiplayerManager.cpp:1196: Auto saving map as /root/factorio/saves/life.zip
+ 163.902 Info AppManager.cpp:420: Saving game as /root/factorio/saves/life.zip
+ 164.153 Info AppManagerStates.cpp:1934: Saving finished
+ 314.591 ConnectionRequestReplyConfirm (type(ConnectionRequestReplyConfirm) ) from(IP ADDR:({171.214.211.60:42368}))
+ 314.591 Refusing connection for address (IP ADDR:({171.214.211.60:42368})), username (mico-199). PasswordMissing
+ 318.974 ConnectionRequestReplyConfirm (type(ConnectionRequestReplyConfirm) ) from(IP ADDR:({171.214.211.60:41920}))
+ 318.974 Info ServerRouter.cpp:453: Replying to connectionRequest for address(IP ADDR:({171.214.211.60:41920})).
+ 318.974 Info ServerSynchronizer.cpp:600: nextHeartbeatSequenceNumber(9425) adding peer(2)
+ 318.992 Info ServerMultiplayerManager.cpp:780: updateTick(429637) changing state from(InGame) to(InGameSavingMap)
+ 319.043 Info ServerMultiplayerManager.cpp:930: updateTick(429637) received stateChanged peerID(2) oldState(Ready) newState(ConnectedWaitingForMap)
+ 319.247 Info ServerMultiplayerManager.cpp:997: UpdateTick(429637) Serving map(/root/factorio/temp/mp-save-1.zip) for peer(2) size(2042025) crc(1569404186)
+ 319.247 Info ServerMultiplayerManager.cpp:780: updateTick(429637) changing state from(InGameSavingMap) to(InGame)
+ 320.003 Info ServerMultiplayerManager.cpp:930: updateTick(429637) received stateChanged peerID(2) oldState(ConnectedWaitingForMap) newState(ConnectedDownloadingMap)
+ 333.954 Info ServerMultiplayerManager.cpp:930: updateTick(429637) received stateChanged peerID(2) oldState(ConnectedDownloadingMap) newState(ConnectedLoadingMap)
+ 334.123 Info ServerMultiplayerManager.cpp:930: updateTick(429646) received stateChanged peerID(2) oldState(ConnectedLoadingMap) newState(TryingToCatchUp)
+ 334.123 Info ServerMultiplayerManager.cpp:930: updateTick(429646) received stateChanged peerID(2) oldState(TryingToCatchUp) newState(WaitingForCommandToStartSendingTickClosures)
+ 334.124 Info GameActionHandler.cpp:4978: UpdateTick (429646) processed PlayerJoinGame peerID(2) playerIndex(0) mode(connect) 
+ 335.122 Info ServerMultiplayerManager.cpp:930: updateTick(429706) received stateChanged peerID(2) oldState(WaitingForCommandToStartSendingTickClosures) newState(InGame)
+ 373.354 Info AppManager.cpp:306: Saving to _autosave2 (blocking).
+ 373.606 Info AppManagerStates.cpp:1934: Saving finished
+ 379.222 Info ServerMultiplayerManager.cpp:1048: Disconnect notification for peer (2)
+ 379.223 Info ServerMultiplayerManager.cpp:930: updateTick(432338) received stateChanged peerID(2) oldState(InGame) newState(DisconnectScheduled)
+ 379.240 Info ServerSynchronizer.cpp:619: nextHeartbeatSequenceNumber(11201) removing peer(2).
+ 380.248 Info ServerMultiplayerManager.cpp:1196: Auto saving map as /root/factorio/saves/life.zip
+ 380.248 Info AppManager.cpp:420: Saving game as /root/factorio/saves/life.zip
+ 380.483 Info AppManagerStates.cpp:1934: Saving finished
+ 397.954 Received SIGINT, shutting down
+ 397.954 Quitting: signal.
+ 397.954 Info MainLoop.cpp:417: Saving map as /root/factorio/saves/life.zip
+ 398.001 Info MainLoop.cpp:428: Saving progress: 0.038956%
+ 398.043 Info MainLoop.cpp:428: Saving progress: 100.000000%
+ 398.183 Received second SIGINT, terminating immediately

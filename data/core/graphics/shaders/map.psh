@@ -1,0 +1,69 @@
+Texture2D<uint4> tex : register(t0);
+SamplerState _tex_sampler : register(s0);
+
+static float2 vUV;
+static float4 fragColor;
+static float4 vTintWith565Multiplier;
+
+struct SPIRV_Cross_Input
+{
+    float2 vUV : TEXCOORD0;
+    float4 vTintWith565Multiplier : TEXCOORD1;
+};
+
+struct SPIRV_Cross_Output
+{
+    float4 fragColor : SV_Target0;
+};
+
+float3 unpackRGB565(int rgb5)
+{
+    return float3(rgb5.xxx & int3(63488, 2016, 31));
+}
+
+void frag_main()
+{
+    if (ddx(vUV).x <= 0.00048828125f)
+    {
+        float2 coord = floor(vUV * 2048.0f);
+        int rgb5 = int(tex.Load(int3(int2(coord), 0)).x);
+        int param = rgb5;
+        float3 _69 = unpackRGB565(param) * vTintWith565Multiplier.xyz;
+        fragColor = float4(_69.x, _69.y, _69.z, fragColor.w);
+    }
+    else
+    {
+        float2 chunkID = floor(vUV * 64.0f);
+        float2 pixelOffset = (vUV * 64.0f) - chunkID;
+        float2 f = (pixelOffset * 32.0f) - 0.5f.xx;
+        float2 uv0 = floor(f);
+        float2 uv1 = uv0 + 1.0f.xx;
+        f -= uv0;
+        uv0 = max(uv0, 0.0f.xx);
+        uv1 = min(uv1, 31.0f.xx);
+        uv0 += (chunkID * 32.0f);
+        uv1 += (chunkID * 32.0f);
+        int c00 = int(tex.Load(int3(int2(int(uv0.x), int(uv0.y)), 0)).x);
+        int c10 = int(tex.Load(int3(int2(int(uv1.x), int(uv0.y)), 0)).x);
+        int c01 = int(tex.Load(int3(int2(int(uv0.x), int(uv1.y)), 0)).x);
+        int c11 = int(tex.Load(int3(int2(int(uv1.x), int(uv1.y)), 0)).x);
+        int param_1 = c00;
+        int param_2 = c10;
+        int param_3 = c01;
+        int param_4 = c11;
+        float3 c = lerp(lerp(unpackRGB565(param_1), unpackRGB565(param_2), f.x.xxx), lerp(unpackRGB565(param_3), unpackRGB565(param_4), f.x.xxx), f.y.xxx);
+        float3 _200 = c * vTintWith565Multiplier.xyz;
+        fragColor = float4(_200.x, _200.y, _200.z, fragColor.w);
+    }
+    fragColor.w = vTintWith565Multiplier.w;
+}
+
+SPIRV_Cross_Output main(SPIRV_Cross_Input stage_input)
+{
+    vUV = stage_input.vUV;
+    vTintWith565Multiplier = stage_input.vTintWith565Multiplier;
+    frag_main();
+    SPIRV_Cross_Output stage_output;
+    stage_output.fragColor = fragColor;
+    return stage_output;
+}
